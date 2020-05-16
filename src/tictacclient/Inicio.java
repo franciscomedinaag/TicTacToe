@@ -40,7 +40,7 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     public Inicio() {
-        System.out.println("Iniciando el cliente...");
+        System.out.println("Iniciando el cliente......");
         initComponents();
     }
 
