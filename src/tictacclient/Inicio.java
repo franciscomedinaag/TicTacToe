@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Inicio extends javax.swing.JFrame {
 
-    public static final String URL="jdbc:mysql://localhost:3306/javacrud";
+    public static final String URL="jdbc:mysql://localhost:3306/miniproyecto";
     public static final String USERNAME="root";
     public static final String PASSWORD="";
     
@@ -40,7 +40,7 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     public Inicio() {
-        System.out.println("Iniciando el cliente......");
+        System.out.println("Iniciando el cliente...");
         initComponents();
     }
 
@@ -156,6 +156,30 @@ public class Inicio extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
+        Connection con=null;
+          
+          try{
+              con=getConection();
+              ps=(PreparedStatement) con.prepareStatement("SELECT * FROM usuario WHERE username=? AND password=?");
+              ps.setString(1, usuario.getText());
+              ps.setString(2, password.getText());
+              
+              rs=ps.executeQuery( );
+           
+              
+              boolean fuckJava=rs.next();
+              
+              if(fuckJava){
+                   JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+              }
+              else{
+                  JOptionPane.showMessageDialog(null, "Revisa tu usuario y contraseña"); 
+              }
+
+          }
+          catch(Exception e){
+              System.err.println(e);
+          }
     }//GEN-LAST:event_loginActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
@@ -170,12 +194,12 @@ public class Inicio extends javax.swing.JFrame {
               
               int res = ps.executeUpdate();
                
-               JOptionPane.showMessageDialog(null,"Usuario creado");
-                 
-
+              JOptionPane.showMessageDialog(null,"Usuario creado");
+              
           }
           catch(Exception e){
               System.err.println(e);
+              JOptionPane.showMessageDialog(null,"Usuario ya existente");
           }
     }//GEN-LAST:event_registerActionPerformed
 
