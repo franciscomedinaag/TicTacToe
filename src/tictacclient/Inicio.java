@@ -165,19 +165,19 @@ public class Inicio extends javax.swing.JFrame {
               ps.setString(2, password.getText());
               
               rs=ps.executeQuery( );
-           
               
               boolean fuckJava=rs.next();
               
               if(fuckJava){
                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                   
                    new Menu(usuario.getText()).setVisible(true);
+                   
+                   Conexion c=new Conexion();
+                   c.inicio(usuario.getText());
               }
               else{
                   JOptionPane.showMessageDialog(null, "Revisa tu usuario y contraseña"); 
               }
-
           }
           catch(Exception e){
               System.err.println(e);

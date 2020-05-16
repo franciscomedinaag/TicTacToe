@@ -5,11 +5,22 @@
  */
 package tictacclient;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author xdook
  */
 public class Menu extends javax.swing.JFrame {
+    
+   
+    String usuarioConectado="usuario";
 
     /**
      * Creates new form Menu
@@ -20,8 +31,12 @@ public class Menu extends javax.swing.JFrame {
     public Menu(String usuario) {
         initComponents();
         
-        usuarioLabel.setText(usuario);
+        usuarioConectado=usuario;
+        usuarioLabel.setText(usuarioConectado);
+        
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
