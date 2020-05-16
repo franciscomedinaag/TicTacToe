@@ -171,6 +171,8 @@ public class Inicio extends javax.swing.JFrame {
               
               if(fuckJava){
                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                   
+                   new Menu(usuario.getText()).setVisible(true);
               }
               else{
                   JOptionPane.showMessageDialog(null, "Revisa tu usuario y contraseña"); 
