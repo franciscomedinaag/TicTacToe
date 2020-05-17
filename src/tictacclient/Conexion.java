@@ -21,6 +21,13 @@ public class Conexion {
     private DataOutputStream salida;
     private DataInputStream entrada;
     
+    public void closeConnection() {
+        try {
+            this.cliente.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public Conexion() {
         try {
