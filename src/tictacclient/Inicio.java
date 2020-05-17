@@ -7,6 +7,7 @@ package tictacclient;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.net.*;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ public class Inicio extends javax.swing.JFrame {
     public static final String URL="jdbc:mysql://localhost:3306/miniproyecto";
     public static final String USERNAME="root";
     public static final String PASSWORD="";
+    public Socket socket;
     
     PreparedStatement ps;
     ResultSet rs;
@@ -36,6 +38,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         return con;
     }
+    
     /**
      * Creates new form Inicio
      */
@@ -155,38 +158,28 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_usuarioActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        // TODO add your handling code here:
-        Connection con=null;
-          
-          try{
-              con=getConection();
-              ps=(PreparedStatement) con.prepareStatement("SELECT * FROM usuario WHERE username=? AND password=?");
-              ps.setString(1, usuario.getText());
-              ps.setString(2, password.getText());
-              
-              rs=ps.executeQuery( );
-              
-              boolean fuckJava=rs.next();
-              
-              if(fuckJava){
-                   JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                   new Menu(usuario.getText()).setVisible(true);
-                   
-                   Conexion c=new Conexion();
-                   c.inicio(usuario.getText());
-              }
-              else{
-                  JOptionPane.showMessageDialog(null, "Revisa tu usuario y contraseña"); 
-              }
-          }
-          catch(Exception e){
-              System.err.println(e);
+        //Enviar por el socket el username y password
+        
+          Conexion c = new Conexion();
+          if(c.attemptLogin(usuario.getText(),password.getText())){
+                JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                new Menu(usuario.getText()).setVisible(true);
+                this.setVisible(false);
+           }
+           else{
+            JOptionPane.showMessageDialog(null, "Revisa tu usuario y contraseña"); 
           }
     }//GEN-LAST:event_loginActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-        // TODO add your handling code here:
-         Connection con=null;
+
+         Connection con = null;
+         
+          //VALIDAR CAMPOS ANTES DE REGISTRARSE
+          if(usuario.getText().equals("") || password.getText().equals("")) {
+              JOptionPane.showMessageDialog( this , "Rellena ambos campos para registrarte");
+              return;
+          }
           
           try{
               con=getConection();

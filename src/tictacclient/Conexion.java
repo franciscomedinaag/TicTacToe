@@ -16,42 +16,36 @@ import java.util.logging.Logger;
 public class Conexion {
     
     Socket cliente;
-    int puerto=9000;
-    String ip="127.0.0.1";
-    BufferedReader entrada, teclado;
-    PrintStream salida;
+    int puerto = 9000;
+    String ip = "127.0.0.1";
+    private DataOutputStream salida;
+    private DataInputStream entrada;
     
-    public void inicio(String usuario){
+    
+    public Conexion() {
         try {
-   
-            cliente=new Socket(ip,puerto);//se conecta
+            cliente = new Socket(ip,puerto);
+            System.out.println("Conectado al servidor...");
             
-            entrada=new BufferedReader
-                    (new InputStreamReader(cliente.getInputStream()));//lo que lee del servidor
-            
-            /*
-            LEER EL TECLADO
-            teclado= new BufferedReader(new InputStreamReader(System.in));
-            String tec=teclado.readLine();*/
-            
-            salida=new PrintStream(cliente.getOutputStream());
-            salida.println(usuario+" inció sesión");
-            /*
-            MANDAR OTRO MENSAJE DESDE EL MISMO CLIENTE
-            salida=new PrintStream(cliente.getOutputStream());
-            salida.println("ese alguien dice "+ tec);*/
-            
-            String msg=entrada.readLine();//lee lo que recibió del servidor
-            System.out.println(msg);//escribe lo que recibió del servidor
-            
-            entrada.close();
-            salida.close();
-            teclado.close();
-            cliente.close();
+            salida = new DataOutputStream(cliente.getOutputStream());
+            entrada = new DataInputStream(cliente.getInputStream());
         
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }     
     }
+    
+    public boolean attemptLogin(String username, String password) {
+        try {
+            salida.writeUTF("login");
+            salida.writeUTF(username);
+            salida.writeUTF(password);
+            return entrada.readBoolean();
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    
 }
