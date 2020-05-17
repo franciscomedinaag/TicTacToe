@@ -8,7 +8,6 @@ package tictacclient;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.net.*;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 /**
@@ -17,33 +16,18 @@ import javax.swing.JOptionPane;
  */
 public class Inicio extends javax.swing.JFrame {
 
-    public static final String URL="jdbc:mysql://localhost:3306/miniproyecto";
-    public static final String USERNAME="root";
-    public static final String PASSWORD="";
+    public Conexion con;
     public Socket socket;
     
     PreparedStatement ps;
     ResultSet rs;
-
-    public static Connection getConection(){
-        
-        Connection con=null;
-            
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(URL,USERNAME,PASSWORD);
-        }   
-        catch(Exception e){
-            System.out.println(e);
-        }
-        return con;
-    }
     
     /**
      * Creates new form Inicio
      */
     public Inicio() {
         System.out.println("Iniciando el cliente...");
+        con = new Conexion();
         initComponents();
     }
 
@@ -159,11 +143,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         //Enviar por el socket el username y password
-        
-          Conexion c = new Conexion();
-          if(c.attemptLogin(usuario.getText(),password.getText())){
+          if(con.attemptLogin(usuario.getText(),password.getText())){
                 JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                new Menu(usuario.getText()).setVisible(true);
+                new Menu(usuario.getText(), con).setVisible(true);
                 this.setVisible(false);
            }
            else{
@@ -173,29 +155,20 @@ public class Inicio extends javax.swing.JFrame {
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
 
-         Connection con = null;
          
-          //VALIDAR CAMPOS ANTES DE REGISTRARSE
-          if(usuario.getText().equals("") || password.getText().equals("")) {
-              JOptionPane.showMessageDialog( this , "Rellena ambos campos para registrarte");
-              return;
-          }
-          
-          try{
-              con=getConection();
-              ps=(PreparedStatement) con.prepareStatement("INSERT INTO usuario (username,password) VALUES (?,?)");
-              ps.setString(1, usuario.getText());
-              ps.setString(2, password.getText());
-              
-              int res = ps.executeUpdate();
-               
-              JOptionPane.showMessageDialog(null,"Usuario creado");
-              
-          }
-          catch(Exception e){
-              System.err.println(e);
-              JOptionPane.showMessageDialog(null,"Usuario ya existente");
-          }
+         //VALIDAR CAMPOS ANTES DE REGISTRARSE
+        if(usuario.getText().equals("") || password.getText().equals("")) {
+            JOptionPane.showMessageDialog( this , "Rellena ambos campos para registrarte");
+            return;
+        }
+        
+        //Hacer el request al servidor
+        if(con.attemptRegister(usuario.getText(),password.getText())){
+            JOptionPane.showMessageDialog(null,"Usuario creado");
+        }
+       else{
+            JOptionPane.showMessageDialog(null,"Usuario ya existente");
+        }
     }//GEN-LAST:event_registerActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed

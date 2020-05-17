@@ -21,6 +21,7 @@ public class Menu extends javax.swing.JFrame {
     
    
     String usuarioConectado="usuario";
+    Conexion con;
 
     /**
      * Creates new form Menu
@@ -28,12 +29,11 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
     }
-    public Menu(String usuario) {
+    public Menu(String usuario, Conexion con) {
         initComponents();
-        
+        this.con = con;
         usuarioConectado=usuario;
         usuarioLabel.setText(usuarioConectado);
-        
     }
     
    

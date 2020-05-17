@@ -47,5 +47,17 @@ public class Conexion {
         }
     }
     
+    public boolean attemptRegister(String username, String password) {
+        try {
+            salida.writeUTF("register");
+            salida.writeUTF(username);
+            salida.writeUTF(password);
+            return entrada.readBoolean();
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     
 }
