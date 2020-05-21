@@ -147,6 +147,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         this.setVisible(false);
+        //dispose();
+        new Inicio().setVisible(true);
     }//GEN-LAST:event_logoutActionPerformed
 
     /**
