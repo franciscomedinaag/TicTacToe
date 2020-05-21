@@ -22,7 +22,6 @@ public class Juego extends javax.swing.JFrame {
     public Juego() {
         initComponents();
         //Hacer la conexion con el socket
-        Inicio.con;
         //Escuchar el dataInputStream
         //Recibir a los dos jugadores
         //Establecer el signo de cada uno (X o Y)
