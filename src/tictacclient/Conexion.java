@@ -8,6 +8,7 @@ import java.net.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,9 @@ public class Conexion {
     String ip = "127.0.0.1";
     private DataOutputStream salida;
     private DataInputStream entrada;
+    private Inicio inicio;
+    private Menu menu;
+    private Juego juego;
     
     public void closeConnection() {
         try {
@@ -36,10 +40,24 @@ public class Conexion {
             
             salida = new DataOutputStream(cliente.getOutputStream());
             entrada = new DataInputStream(cliente.getInputStream());
-        
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }     
+        
+        while(true) {
+            try {
+                String accion = entrada.readUTF();
+                switch (accion) {
+                    case "recieveInvitation":
+                        recieveGameInvitation();
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public boolean attemptLogin(String username, String password) {
@@ -65,6 +83,39 @@ public class Conexion {
             return false;
         }
     }
+    
+    public void sendGameInvitation(String username) {
+        try {
+            //Mandar el codigo con invitation
+            salida.writeUTF("sendInvitation");
+            salida.writeUTF(username);
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void recieveGameInvitation() {
+        try {
+            String remitente = entrada.readUTF();
+            //Abrir el dialog en el menu
+            int input = JOptionPane.showConfirmDialog(menu, "Invitación de juego", remitente + " te envió una solicitud de juego", JOptionPane.YES_NO_OPTION);
+            if(input == JOptionPane.YES_OPTION)
+            {
+                //Aceptar la invitación de juego
+                salida.writeBoolean(true);
+                this.joinGame(remitente);
+            } else {
+                salida.writeBoolean(false);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void joinGame(String username) {
+        
+    }
+    
     
     
 }
