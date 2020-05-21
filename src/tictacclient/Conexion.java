@@ -27,9 +27,10 @@ public class Conexion {
     
     public void closeConnection() {
         try {
+            System.out.println("cerrar cliente");
             this.cliente.close();
         } catch (IOException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
