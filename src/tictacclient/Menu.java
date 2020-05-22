@@ -27,10 +27,13 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
     }
+    
     public Menu(String usuario) {
         initComponents();
         usuarioConectado=usuario;
         usuarioLabel.setText(usuarioConectado);
+        Inicio.con.menu = this;
+        Inicio.con.start();
     }
     
    
@@ -80,6 +83,11 @@ public class Menu extends javax.swing.JFrame {
         playAI.setText("Jugador vs PC");
 
         playPlayer.setText("Jugador vs Jugador");
+        playPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playPlayerActionPerformed(evt);
+            }
+        });
 
         playLabel.setText("Jugar");
 
@@ -150,6 +158,10 @@ public class Menu extends javax.swing.JFrame {
         //dispose();
         new Inicio().setVisible(true);
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void playPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPlayerActionPerformed
+        Inicio.con.sendGameInvitation("pabcar03");
+    }//GEN-LAST:event_playPlayerActionPerformed
 
     /**
      * @param args the command line arguments

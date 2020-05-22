@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author xdook
  */
-public class Conexion {
+public class Conexion extends Thread {
     
     Socket cliente;
     int puerto = 9000;
@@ -22,7 +22,7 @@ public class Conexion {
     private DataOutputStream salida;
     private DataInputStream entrada;
     private Inicio inicio;
-    private Menu menu;
+    public Menu menu;
     private Juego juego;
     
     public void closeConnection() {
@@ -43,9 +43,13 @@ public class Conexion {
             entrada = new DataInputStream(cliente.getInputStream());
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        
+        } 
+    }
+    
+    @Override
+    public void run() {        
         while(true) {
+            System.out.println("Dentro");
             try {
                 String accion = entrada.readUTF();
                 switch (accion) {
@@ -88,8 +92,17 @@ public class Conexion {
     public void sendGameInvitation(String username) {
         try {
             //Mandar el codigo con invitation
+            System.out.println("1. Enviando invitación de juego a " + username);
             salida.writeUTF("sendInvitation");
             salida.writeUTF(username);
+            boolean response = entrada.readBoolean();
+            System.out.println("7.000 Resultado de invitacion "+ response);
+            if(response) {
+                //Entrar al juego
+                System.out.println("7. La solicitud de juego fue aceptada");
+                String rival = entrada.readUTF();
+                this.joinGame(username, rival);
+            }
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,13 +111,15 @@ public class Conexion {
     public void recieveGameInvitation() {
         try {
             String remitente = entrada.readUTF();
+            String destinatario = entrada.readUTF();
             //Abrir el dialog en el menu
-            int input = JOptionPane.showConfirmDialog(menu, "Invitación de juego", remitente + " te envió una solicitud de juego", JOptionPane.YES_NO_OPTION);
+            int input = JOptionPane.showConfirmDialog(menu, remitente + " te envió una solicitud de juego", "Invitación de juego", JOptionPane.YES_NO_OPTION);
             if(input == JOptionPane.YES_OPTION)
             {
                 //Aceptar la invitación de juego
+                System.out.println("6. Aceptando el cuadro de dialogo");
                 salida.writeBoolean(true);
-                this.joinGame(remitente);
+                this.joinGame(remitente, destinatario);
             } else {
                 salida.writeBoolean(false);
             }
@@ -113,9 +128,42 @@ public class Conexion {
         }
     }
     
-    public void joinGame(String username) {
-        
+    public void joinGame(String rival, String username) {
+        System.out.println("8. Uniendose a juego");
+        try {
+            //Recibir el signo
+            String sign = entrada.readUTF();
+            System.out.println("11. Recibido el signo");
+            //Recibir isMyTurn
+            boolean isMyTurn = entrada.readBoolean();
+            System.out.println("13. Recibido ismyTurn");
+            
+            System.out.println("14. Creando objeto juego");
+            juego = new Juego(sign, username, rival, isMyTurn);
+            juego.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+    public void sendMove(String slot) {
+        try {
+            salida.writeUTF("move");
+            salida.writeUTF(slot);
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void recieveMove(){
+        try {
+            String slot = entrada.readUTF();
+            juego.recieveMove(slot);
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     
     

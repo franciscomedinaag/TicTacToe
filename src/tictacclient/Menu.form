@@ -151,6 +151,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Jugador vs Jugador"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playPlayerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="playLabel">
       <Properties>

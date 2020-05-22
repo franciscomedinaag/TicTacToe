@@ -11,22 +11,24 @@ package tictacclient;
  */
 public class Juego extends javax.swing.JFrame {
     
-    private String icon;
-    private String player1;
-    private String player2;
+    private final String icon;
+    private final String player1;
+    private final String player2;
     private boolean ismyTurn;
 
     /**
      * Creates new form Juego
+     * @param icon
+     * @param player1
+     * @param player2
+     * @param ismyTurn
      */
-    public Juego() {
+    public Juego(String icon, String player1, String player2, boolean ismyTurn) {
+        this.icon = icon;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.ismyTurn = ismyTurn;
         initComponents();
-        //Hacer la conexion con el socket
-        //Escuchar el dataInputStream
-        //Recibir a los dos jugadores
-        //Establecer el signo de cada uno (X o Y)
-        //Establecer quien va primero
-        //Mandar una señal de que está listo
     }
 
     /**
@@ -50,6 +52,7 @@ public class Juego extends javax.swing.JFrame {
         slot9 = new javax.swing.JButton();
         infoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        playerLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,6 +76,8 @@ public class Juego extends javax.swing.JFrame {
 
         jLabel1.setText("Es turno de: ");
 
+        playerLabel.setText("player");
+
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
@@ -80,13 +85,17 @@ public class Juego extends javax.swing.JFrame {
             .addGroup(infoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(playerLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         infoPanelLayout.setVerticalGroup(
             infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(playerLabel))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
@@ -115,11 +124,20 @@ public class Juego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void slot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot1ActionPerformed
-        //Obtener el jugador en turno
-        //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
-        
-        //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
-        //Checar en el arreglo si hay tres en linea
+        //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot1.setText(icon);
+            slot1.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("1");
+            
+        }
     }//GEN-LAST:event_slot1ActionPerformed
 
     /**
@@ -151,15 +169,58 @@ public class Juego extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Juego().setVisible(true);
-            }
+            public void run() {}
         });
+    }
+    
+    public void recieveMove(String slot){
+        String resIcon = icon.equals("X")?"0":"X";
+        switch (slot) {
+            case "1":
+                this.slot1.setText(resIcon);
+                this.slot1.setEnabled(false);
+                break;
+            case "2":
+                this.slot2.setText(resIcon);
+                this.slot2.setEnabled(false);
+                break;
+            case "3":
+                this.slot3.setText(resIcon);
+                this.slot3.setEnabled(false);
+                break;
+            case "4":
+                this.slot4.setText(resIcon);
+                this.slot4.setEnabled(false);
+                break;
+            case "5":
+                this.slot5.setText(resIcon);
+                this.slot5.setEnabled(false);
+                break;
+            case "6":
+                this.slot6.setText(resIcon);
+                this.slot6.setEnabled(false);
+                break;
+            case "7":
+                this.slot7.setText(resIcon);
+                this.slot7.setEnabled(false);
+                break;
+            case "8":
+                this.slot8.setText(resIcon);
+                this.slot8.setEnabled(false);
+                break;
+            case "9":
+                this.slot9.setText(resIcon);
+                this.slot9.setEnabled(false);
+                break;
+        }
+        this.playerLabel.setText(player1);
+        this.ismyTurn = true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel infoPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel playerLabel;
     private javax.swing.JButton slot1;
     private javax.swing.JButton slot2;
     private javax.swing.JButton slot3;
