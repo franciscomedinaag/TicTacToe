@@ -28,6 +28,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         System.out.println("Iniciando el cliente...");
         initComponents();
+        this.setVisible(true);
     }
 
     /**
