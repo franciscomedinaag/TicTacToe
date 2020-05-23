@@ -7,8 +7,12 @@ package tictacclient;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.net.*;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -21,7 +25,7 @@ public class Inicio extends javax.swing.JFrame {
     
     PreparedStatement ps;
     ResultSet rs;
-    
+
     /**
      * Creates new form Inicio
      */
@@ -149,6 +153,7 @@ public class Inicio extends javax.swing.JFrame {
         //Enviar por el socket el username y password
           if(con.attemptLogin(usuario.getText(),password.getText())){
                 JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+             
                 new Menu(usuario.getText()).setVisible(true);
                 this.setVisible(false);
                 //dispose();
