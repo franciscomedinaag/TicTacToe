@@ -59,6 +59,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(600, 200));
 
         jLabel1.setText("Bienvenido, ");
 
@@ -155,8 +156,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         this.setVisible(false);
-        //dispose();
         new Inicio().setVisible(true);
+        dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
     private void playPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPlayerActionPerformed

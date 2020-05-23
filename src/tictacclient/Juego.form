@@ -64,20 +64,44 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot2">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot3">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot3ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot4">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot4ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot5">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot5ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot6">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot6ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot7">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot7ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot8">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot8ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot9">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot9ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

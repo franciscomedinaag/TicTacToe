@@ -5,6 +5,8 @@
  */
 package tictacclient;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pabca
@@ -29,6 +31,7 @@ public class Juego extends javax.swing.JFrame {
         this.player2 = player2;
         this.ismyTurn = ismyTurn;
         initComponents();
+        this.playerLabel.setText(ismyTurn ? player1:player2);
     }
 
     /**
@@ -65,13 +68,61 @@ public class Juego extends javax.swing.JFrame {
             }
         });
         tablero.add(slot1);
+
+        slot2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot2ActionPerformed(evt);
+            }
+        });
         tablero.add(slot2);
+
+        slot3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot3ActionPerformed(evt);
+            }
+        });
         tablero.add(slot3);
+
+        slot4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot4ActionPerformed(evt);
+            }
+        });
         tablero.add(slot4);
+
+        slot5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot5ActionPerformed(evt);
+            }
+        });
         tablero.add(slot5);
+
+        slot6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot6ActionPerformed(evt);
+            }
+        });
         tablero.add(slot6);
+
+        slot7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot7ActionPerformed(evt);
+            }
+        });
         tablero.add(slot7);
+
+        slot8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot8ActionPerformed(evt);
+            }
+        });
         tablero.add(slot8);
+
+        slot9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot9ActionPerformed(evt);
+            }
+        });
         tablero.add(slot9);
 
         jLabel1.setText("Es turno de: ");
@@ -129,16 +180,159 @@ public class Juego extends javax.swing.JFrame {
             //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
             slot1.setText(icon);
             slot1.setEnabled(false);
-            //Checar en el arreglo si hay tres en linea
-            
+
             
             //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
             ismyTurn = false;
             playerLabel.setText(player2);
             Inicio.con.sendMove("1");
             
+            checkIfEnd();
         }
     }//GEN-LAST:event_slot1ActionPerformed
+
+    private void slot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot2ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot2.setText(icon);
+            slot2.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("2");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot2ActionPerformed
+
+    private void slot3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot3ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot3.setText(icon);
+            slot3.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("3");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot3ActionPerformed
+
+    private void slot4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot4ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot4.setText(icon);
+            slot4.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("4");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot4ActionPerformed
+
+    private void slot5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot5ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot5.setText(icon);
+            slot5.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("5");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot5ActionPerformed
+
+    private void slot6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot6ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot6.setText(icon);
+            slot6.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("6");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot6ActionPerformed
+
+    private void slot7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot7ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot7.setText(icon);
+            slot7.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("7");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot7ActionPerformed
+
+    private void slot8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot8ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot8.setText(icon);
+            slot8.setEnabled(false);
+            //Checar en el arreglo si hay tres en linea
+            
+            
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("8");
+            
+            checkIfEnd();
+        }
+    }//GEN-LAST:event_slot8ActionPerformed
+
+    private void slot9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot9ActionPerformed
+                //Obtener si es mi turno
+        if(ismyTurn) {
+            //Si el jugador en turno soy yo cambiar la etiqueta a mi signo
+            slot9.setText(icon);
+            slot9.setEnabled(false);
+
+            //Mandar el mensaje al servidor de que ya tiré, con el numero de boton
+            ismyTurn = false;
+            playerLabel.setText(player2);
+            Inicio.con.sendMove("9");
+            
+            checkIfEnd();
+            
+        }
+    }//GEN-LAST:event_slot9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,8 +367,36 @@ public class Juego extends javax.swing.JFrame {
         });
     }
     
+    public void onWinning() {
+        //Terminar el juego con mensaje de ganador
+        JOptionPane.showMessageDialog(null, "Eres el ganador!!!");
+        //Pedir al servidor que lo registre
+        Inicio.con.registerGame(player2);
+        //Volver al menú
+        Inicio.con.menu.setVisible(true);
+        System.out.println("Terminando juego");
+        this.dispose();
+    }
+    
+    public void onLosing() {
+        //Terminar el juego con mensaje de perdida
+        JOptionPane.showMessageDialog(null, "Eres el perdedor :(");
+        //Volver al menu
+        Inicio.con.menu.setVisible(true);
+        System.out.println("Terminando juego");
+        this.dispose(); 
+    }
+    
+    public void onTie() {
+        JOptionPane.showMessageDialog(null, "Empate!"); 
+        //Enviar al servidor que fue empate
+        Inicio.con.menu.setVisible(true);
+        this.dispose();
+    }
+            
+    
     public void recieveMove(String slot){
-        String resIcon = icon.equals("X")?"0":"X";
+        String resIcon = icon.equals("X")?"O":"X";
         switch (slot) {
             case "1":
                 this.slot1.setText(resIcon);
@@ -213,8 +435,67 @@ public class Juego extends javax.swing.JFrame {
                 this.slot9.setEnabled(false);
                 break;
         }
+        
         this.playerLabel.setText(player1);
         this.ismyTurn = true;
+    }
+    
+    private void checkIfEnd() {
+        
+//        x x x
+//        - - -
+//        - - -  
+        if(slot1.getText().equals(icon) && slot2.getText().equals(icon) && slot3.getText().equals(icon))
+            this.onWinning();
+//        - - -
+//        x x x
+//        - - -  
+        else if(slot4.getText().equals(icon) && slot5.getText().equals(icon) && slot6.getText().equals(icon))
+            this.onWinning();
+//        - - -
+//        - - -
+//        x x x
+        else if(slot7.getText().equals(icon) && slot8.getText().equals(icon) && slot9.getText().equals(icon))
+            this.onWinning();
+//        x - -
+//        x - -
+//        x - -
+        else if(slot1.getText().equals(icon) && slot4.getText().equals(icon) && slot7.getText().equals(icon))
+            this.onWinning();
+//        - x -
+//        - x -
+//        - x -
+        else if(slot2.getText().equals(icon) && slot5.getText().equals(icon) && slot8.getText().equals(icon))
+            this.onWinning();
+//        - - x
+//        - - x
+//        - - x
+        else if(slot3.getText().equals(icon) && slot6.getText().equals(icon) && slot9.getText().equals(icon))
+            this.onWinning();
+//        x - -
+//        - x -
+//        - - x
+        else if(slot1.getText().equals(icon) && slot5.getText().equals(icon) && slot9.getText().equals(icon))
+            this.onWinning();
+//        - - x
+//        - x -
+//        x - -
+        else if(slot3.getText().equals(icon) && slot5.getText().equals(icon) && slot7.getText().equals(icon))
+            this.onWinning();
+        
+//      Revisar empate
+        else if (
+            (slot1.getText().equals("X")  || slot1.getText().equals("X") ) &&
+            (slot2.getText().equals("X")  || slot2.getText().equals("X") ) &&
+            (slot3.getText().equals("X")  || slot3.getText().equals("X") ) &&
+            (slot4.getText().equals("X")  || slot4.getText().equals("X") ) &&
+            (slot5.getText().equals("X")  || slot5.getText().equals("X") ) &&
+            (slot6.getText().equals("X")  || slot6.getText().equals("X") ) &&
+            (slot7.getText().equals("X")  || slot7.getText().equals("X") ) &&
+            (slot8.getText().equals("X")  || slot8.getText().equals("X") ) &&
+            (slot9.getText().equals("X")  || slot9.getText().equals("X") )
+        ) this.onTie();
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

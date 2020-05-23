@@ -47,21 +47,33 @@ public class Conexion extends Thread {
     }
     
     @Override
-    public void run() {        
-        while(true) {
-            System.out.println("Dentro");
-            try {
-                String accion = entrada.readUTF();
-                switch (accion) {
-                    case "recieveInvitation":
-                        recieveGameInvitation();
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+    public void run() {  
+        while(true)
+        try {
+            System.out.println("Raady for action");
+            String accion = entrada.readUTF();
+            System.out.println("Recibiendo accion : " + accion);
+            switch (accion) {
+                case "recieveInvitation":
+                    recieveGameInvitation();
+                    break;
+                case "onInvitationAccepted": 
+                    onInvitationAccepted();
+                    break;
+                case "onInvitationDeclined":
+                    onInvitationDeclined();
+                    break;
+                case "recieveMove":
+                    this.recieveMove();
+                break;
+                case "lostGame": 
+                    onGameLost();
+                break;
+                default:
+                    throw new AssertionError();
             }
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -92,20 +104,26 @@ public class Conexion extends Thread {
     public void sendGameInvitation(String username) {
         try {
             //Mandar el codigo con invitation
-            System.out.println("1. Enviando invitación de juego a " + username);
             salida.writeUTF("sendInvitation");
             salida.writeUTF(username);
-            boolean response = entrada.readBoolean();
-            System.out.println("7.000 Resultado de invitacion "+ response);
-            if(response) {
-                //Entrar al juego
-                System.out.println("7. La solicitud de juego fue aceptada");
-                String rival = entrada.readUTF();
-                this.joinGame(username, rival);
-            }
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void onInvitationAccepted(){
+        try {
+                //Entrar al juego
+                String rival = entrada.readUTF();
+                String username = entrada.readUTF();
+                this.joinGame(rival, username);
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void onInvitationDeclined() {
+        
     }
     
     public void recieveGameInvitation() {
@@ -117,11 +135,14 @@ public class Conexion extends Thread {
             if(input == JOptionPane.YES_OPTION)
             {
                 //Aceptar la invitación de juego
-                System.out.println("6. Aceptando el cuadro de dialogo");
+                salida.writeUTF("Respuesta Invitacion");
                 salida.writeBoolean(true);
+                salida.writeUTF(remitente);
                 this.joinGame(remitente, destinatario);
             } else {
+                salida.writeUTF("Respuesta Invitación");
                 salida.writeBoolean(false);
+                salida.writeUTF(remitente);
             }
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,18 +150,16 @@ public class Conexion extends Thread {
     }
     
     public void joinGame(String rival, String username) {
-        System.out.println("8. Uniendose a juego");
         try {
             //Recibir el signo
             String sign = entrada.readUTF();
-            System.out.println("11. Recibido el signo");
             //Recibir isMyTurn
             boolean isMyTurn = entrada.readBoolean();
-            System.out.println("13. Recibido ismyTurn");
             
             System.out.println("14. Creando objeto juego");
             juego = new Juego(sign, username, rival, isMyTurn);
             juego.setVisible(true);
+            this.menu.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -158,13 +177,26 @@ public class Conexion extends Thread {
     public void recieveMove(){
         try {
             String slot = entrada.readUTF();
+            System.out.println("Sot recibido: " + slot);
             juego.recieveMove(slot);
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void registerGame(String rival) {
+        try {
+            salida.writeUTF("registerGame");
+            juego = null;
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
-    
-    
+    public void onGameLost(){
+        this.juego.onLosing();
+        juego = null;
+    }
     
 }
