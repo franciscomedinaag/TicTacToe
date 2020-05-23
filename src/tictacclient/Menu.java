@@ -116,6 +116,11 @@ public class Menu extends javax.swing.JFrame {
 
         history.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         history.setText("Historial de Partidas");
+        history.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyActionPerformed(evt);
+            }
+        });
 
         playAI.setText("Jugador vs PC");
         playAI.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +246,11 @@ public class Menu extends javax.swing.JFrame {
         new JuegoPc(usuarioConectado).setVisible(true);
        // this.setVisible(false);
     }//GEN-LAST:event_playAIActionPerformed
+
+    private void historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyActionPerformed
+        // TODO add your handling code here:
+        new Historial(usuarioConectado).setVisible(true);
+    }//GEN-LAST:event_historyActionPerformed
 
     
     /**

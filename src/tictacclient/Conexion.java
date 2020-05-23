@@ -26,7 +26,7 @@ public class Conexion extends Thread {
     private Inicio inicio;
     public Menu menu;
     private Juego juego;
-  
+    public Historial historial;
     
     public void closeConnection() {
         try {
@@ -74,6 +74,9 @@ public class Conexion extends Thread {
                 break;
                 case "usersList": 
                     menu.listToModel(entrada.readUTF());
+                break;
+                case "partidas": 
+                    historial.setHist(entrada.readUTF());
                 break;
                 default:
                      System.out.println("DEFAULT");
@@ -252,6 +255,28 @@ public class Conexion extends Thread {
         }
         
     }
+    
+    public void getPartidas(String username) {
+        try {
+            salida.writeUTF("getPartidas");
+            salida.writeUTF(username);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+           
+        }
+    }
+    
+    public String partidas(){
+        try {
+            return entrada.readUTF();
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+    }
+    
+    
     
     public void onGameLost(){
         this.juego.onLosing();
