@@ -201,7 +201,10 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutActionPerformed
 
     private void playPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPlayerActionPerformed
-        Inicio.con.sendGameInvitation("pabcar03");
+        //Obtener el item seleccionado de la lista
+        String selected = jList1.getSelectedValue();
+        if(selected != null)
+        Inicio.con.sendGameInvitation(selected);
     }//GEN-LAST:event_playPlayerActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
