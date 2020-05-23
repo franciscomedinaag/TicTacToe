@@ -72,11 +72,17 @@ public class Conexion extends Thread {
                 case "lostGame": 
                     onGameLost();
                 break;
+                case "usersList": 
+                    menu.listToModel(entrada.readUTF());
+                break;
                 default:
+                     System.out.println("DEFAULT");
                     throw new AssertionError();
+                   
             }
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("CATCH");
         }
     }
     

@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class Menu extends javax.swing.JFrame {
         Inicio.con.menu = this;
         Inicio.con.start();
         getUsers();
-        refresh.setEnabled(false);
+        refresh.setEnabled(true);
     }
     
    
@@ -57,6 +58,22 @@ public class Menu extends javax.swing.JFrame {
         jList1.setModel(connectedModel);
 
      }
+    
+    public void listToModel(String stringConected){
+         String replace = stringConected.replace("[","");
+         String replace1 = replace.replace("]","");
+         connected.clear();
+         connectedModel.removeAllElements();
+         connected = new ArrayList<String>(Arrays.asList(replace1.split(",")));
+          connected.remove(usuarioLabel.getText());
+        connected.remove(" "+usuarioLabel.getText());
+
+        for (int i = 0; i < connected.size(); i++)
+        {
+            connectedModel.addElement(connected.get(i));
+        }
+        jList1.setModel(connectedModel);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,8 +118,13 @@ public class Menu extends javax.swing.JFrame {
         history.setText("Historial de Partidas");
 
         playAI.setText("Jugador vs PC");
+        playAI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playAIActionPerformed(evt);
+            }
+        });
 
-        playPlayer.setText("Jugador vs Jugador");
+        playPlayer.setText("Jugador vs Jugador Seleccionado");
         playPlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPlayerActionPerformed(evt);
@@ -131,16 +153,17 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(playLabel)
                                 .addGap(80, 80, 80))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(playAI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(playPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(26, 26, 26))))
+                                .addComponent(playPlayer)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(playAI, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -196,7 +219,7 @@ public class Menu extends javax.swing.JFrame {
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         this.setVisible(false);
         Inicio.con.logout();
-        new Inicio().setVisible(true);
+        //new Inicio().setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
@@ -208,20 +231,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_playPlayerActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        // TODO add your handling code here:
-                connected.clear();
+        
                 Inicio.con.getUsers();
-                connected=Inicio.con.connectedUsers();
-                connected.remove(usuarioLabel.getText());
-                connected.remove(" "+usuarioLabel.getText());
-                System.out.println("Usuarios conectados en boton:"+connected);
-                connectedModel.removeAllElements();
-                for (int i = 0; i < connected.size(); i++)
-                {
-                    connectedModel.addElement(connected.get(i));
-                }
-                jList1.setModel(connectedModel);             
+               
     }//GEN-LAST:event_refreshActionPerformed
+
+    private void playAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playAIActionPerformed
 
     
     /**

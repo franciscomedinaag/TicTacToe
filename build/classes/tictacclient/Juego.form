@@ -64,7 +64,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="slot2">
-<<<<<<< HEAD
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot2ActionPerformed"/>
           </Events>
@@ -103,22 +102,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot9ActionPerformed"/>
           </Events>
-=======
-        </Component>
-        <Component class="javax.swing.JButton" name="slot3">
-        </Component>
-        <Component class="javax.swing.JButton" name="slot4">
-        </Component>
-        <Component class="javax.swing.JButton" name="slot5">
-        </Component>
-        <Component class="javax.swing.JButton" name="slot6">
-        </Component>
-        <Component class="javax.swing.JButton" name="slot7">
-        </Component>
-        <Component class="javax.swing.JButton" name="slot8">
-        </Component>
-        <Component class="javax.swing.JButton" name="slot9">
->>>>>>> 752cfc4e3390f27ab1ae38e591f17bdc7c4f70dc
         </Component>
       </SubComponents>
     </Container>
