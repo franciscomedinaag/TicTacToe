@@ -147,6 +147,7 @@ public class Conexion extends Thread {
         }
     }
     
+    
     public void sendGameInvitation(String username) {
         try {
             //Mandar el codigo con invitation
@@ -234,6 +235,18 @@ public class Conexion extends Thread {
         try {
             salida.writeUTF("registerGame");
             juego = null;
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void registerPcGame(String ganador, String perdedor, Boolean empate) {
+        try {
+            salida.writeUTF("registerPcGame");
+            salida.writeUTF(ganador);
+            salida.writeUTF(perdedor);
+            salida.writeBoolean(empate);
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }

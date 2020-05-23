@@ -485,15 +485,15 @@ public class Juego extends javax.swing.JFrame {
         
 //      Revisar empate
         else if (
-            (slot1.getText().equals("X")  || slot1.getText().equals("X") ) &&
-            (slot2.getText().equals("X")  || slot2.getText().equals("X") ) &&
-            (slot3.getText().equals("X")  || slot3.getText().equals("X") ) &&
-            (slot4.getText().equals("X")  || slot4.getText().equals("X") ) &&
-            (slot5.getText().equals("X")  || slot5.getText().equals("X") ) &&
-            (slot6.getText().equals("X")  || slot6.getText().equals("X") ) &&
-            (slot7.getText().equals("X")  || slot7.getText().equals("X") ) &&
-            (slot8.getText().equals("X")  || slot8.getText().equals("X") ) &&
-            (slot9.getText().equals("X")  || slot9.getText().equals("X") )
+            (slot1.getText().equals("X")  || slot1.getText().equals("O") ) &&
+            (slot2.getText().equals("X")  || slot2.getText().equals("O") ) &&
+            (slot3.getText().equals("X")  || slot3.getText().equals("O") ) &&
+            (slot4.getText().equals("X")  || slot4.getText().equals("O") ) &&
+            (slot5.getText().equals("X")  || slot5.getText().equals("O") ) &&
+            (slot6.getText().equals("X")  || slot6.getText().equals("O") ) &&
+            (slot7.getText().equals("X")  || slot7.getText().equals("O") ) &&
+            (slot8.getText().equals("X")  || slot8.getText().equals("O") ) &&
+            (slot9.getText().equals("X")  || slot9.getText().equals("O") )
         ) this.onTie();
         
     }

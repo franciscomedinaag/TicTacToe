@@ -238,6 +238,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void playAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAIActionPerformed
         // TODO add your handling code here:
+        new JuegoPc(usuarioConectado).setVisible(true);
+       // this.setVisible(false);
     }//GEN-LAST:event_playAIActionPerformed
 
     
