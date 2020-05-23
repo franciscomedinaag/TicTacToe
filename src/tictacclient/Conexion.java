@@ -6,6 +6,8 @@
 package tictacclient;
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ public class Conexion extends Thread {
     private Inicio inicio;
     public Menu menu;
     private Juego juego;
+  
     
     public void closeConnection() {
         try {
@@ -49,6 +52,8 @@ public class Conexion extends Thread {
     @Override
     public void run() {        
         while(true) {
+         
+            
             System.out.println("Dentro");
             try {
                 String accion = entrada.readUTF();
@@ -57,7 +62,7 @@ public class Conexion extends Thread {
                         recieveGameInvitation();
                         break;
                     default:
-                        throw new AssertionError();
+                       throw new AssertionError();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,6 +71,7 @@ public class Conexion extends Thread {
     }
     
     public boolean attemptLogin(String username, String password) {
+        
         try {
             salida.writeUTF("login");
             salida.writeUTF(username);
@@ -75,6 +81,42 @@ public class Conexion extends Thread {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    public void logout(){
+        try {
+            salida.writeUTF("logout");
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getUsers(){
+    try {
+            salida.writeUTF("users");
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ArrayList<String> connectedUsers(){
+    
+       ArrayList<String> connected = new ArrayList<>();
+       try {
+            String conectedString=entrada.readUTF();
+            System.out.println("leido del servidor: "+conectedString);
+            String replace = conectedString.replace("[","");
+            String replace1 = replace.replace("]","");
+            connected = new ArrayList<String>(Arrays.asList(replace1.split(",")));
+            return connected;
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return connected;
+    }
+    
+    public void getNewList(){
+    
     }
     
     public boolean attemptRegister(String username, String password) {
