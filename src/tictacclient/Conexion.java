@@ -53,7 +53,7 @@ public class Conexion extends Thread {
     public void run() {  
         while(true)
         try {
-            System.out.println("Raady for action");
+            System.out.println("Ready for action");
             String accion = entrada.readUTF();
             System.out.println("Recibiendo accion : " + accion);
             switch (accion) {
@@ -72,17 +72,21 @@ public class Conexion extends Thread {
                 case "lostGame": 
                     onGameLost();
                 break;
+                case "tiedGame": 
+                    onGameTied();
+                break;
                 case "usersList": 
                     menu.listToModel(entrada.readUTF());
+                    System.out.println("USERLIST SET");
                 break;
                 case "partidas": 
-                    historial.setHist(entrada.readUTF());
+                    Historial.setHist(entrada.readUTF());
                 break;
                 default:
                      System.out.println("DEFAULT");
                     throw new AssertionError();
-                   
             }
+                System.out.println("TERMINADA ACCION");
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("CATCH");
@@ -134,9 +138,6 @@ public class Conexion extends Thread {
       return connected;
     }
     
-    public void getNewList(){
-    
-    }
     
     public boolean attemptRegister(String username, String password) {
         try {
@@ -156,6 +157,7 @@ public class Conexion extends Thread {
             //Mandar el codigo con invitation
             salida.writeUTF("sendInvitation");
             salida.writeUTF(username);
+            System.out.println("Mandados ambos datos");
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -173,10 +175,11 @@ public class Conexion extends Thread {
     }
     
     public void onInvitationDeclined() {
-        
+        JOptionPane.showMessageDialog(null, "Invitación rechazada"); 
     }
     
     public void recieveGameInvitation() {
+        System.out.println("recibiendo Invitacion");
         try {
             String remitente = entrada.readUTF();
             String destinatario = entrada.readUTF();
@@ -209,7 +212,7 @@ public class Conexion extends Thread {
             System.out.println("14. Creando objeto juego");
             juego = new Juego(sign, username, rival, isMyTurn);
             juego.setVisible(true);
-            this.menu.setVisible(false);
+            Inicio.con.menu.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -237,6 +240,7 @@ public class Conexion extends Thread {
     public void registerGame(String rival) {
         try {
             salida.writeUTF("registerGame");
+            System.out.println("Enviado registerGame a ServerThread");
             juego = null;
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -281,6 +285,20 @@ public class Conexion extends Thread {
     public void onGameLost(){
         this.juego.onLosing();
         juego = null;
+    }
+    
+    public void onGameTied(){
+        this.juego.notifyTied();
+        juego = null;
+    }
+    
+    public void registerTiedGame(String rival) {
+        try {
+            salida.writeUTF("registerTiedGame");
+            juego = null;
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

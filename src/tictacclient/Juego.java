@@ -370,9 +370,11 @@ public class Juego extends javax.swing.JFrame {
     public void onWinning() {
         //Terminar el juego con mensaje de ganador
         JOptionPane.showMessageDialog(null, "Eres el ganador!!!");
+        System.out.println("Enviado a servidor");
         //Pedir al servidor que lo registre
         Inicio.con.registerGame(player2);
         //Volver al menú
+        System.out.println("Creando el nuevo menu");
         Inicio.con.menu.setVisible(true);
         System.out.println("Terminando juego");
         this.dispose();
@@ -382,6 +384,7 @@ public class Juego extends javax.swing.JFrame {
         //Terminar el juego con mensaje de perdida
         JOptionPane.showMessageDialog(null, "Eres el perdedor :(");
         //Volver al menu
+        System.out.println("Creando el menu");
         Inicio.con.menu.setVisible(true);
         System.out.println("Terminando juego");
         this.dispose(); 
@@ -390,6 +393,14 @@ public class Juego extends javax.swing.JFrame {
     public void onTie() {
         JOptionPane.showMessageDialog(null, "Empate!"); 
         //Enviar al servidor que fue empate
+        Inicio.con.registerTiedGame(player2);
+        //Volver al menu
+        Inicio.con.menu.setVisible(true);
+        this.dispose();
+    }
+    
+    public void notifyTied() {
+        JOptionPane.showMessageDialog(null, "Empate!"); 
         Inicio.con.menu.setVisible(true);
         this.dispose();
     }

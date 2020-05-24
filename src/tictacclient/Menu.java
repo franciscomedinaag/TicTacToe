@@ -60,19 +60,21 @@ public class Menu extends javax.swing.JFrame {
      }
     
     public void listToModel(String stringConected){
+        System.out.println("Obteniendo  listaaaaaaa");
          String replace = stringConected.replace("[","");
          String replace1 = replace.replace("]","");
          connected.clear();
          connectedModel.removeAllElements();
-         connected = new ArrayList<String>(Arrays.asList(replace1.split(",")));
-          connected.remove(usuarioLabel.getText());
-        connected.remove(" "+usuarioLabel.getText());
+         connected = new ArrayList<>(Arrays.asList(replace1.split(",")));
+         connected.remove(usuarioLabel.getText());
+         connected.remove(" "+usuarioLabel.getText());
 
         for (int i = 0; i < connected.size(); i++)
         {
             connectedModel.addElement(connected.get(i));
         }
         jList1.setModel(connectedModel);
+        System.out.println("Obtenida lista de usuarios");
     }
     
     /**
@@ -236,9 +238,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_playPlayerActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        
-                Inicio.con.getUsers();
-               
+        Inicio.con.getUsers();           
     }//GEN-LAST:event_refreshActionPerformed
 
     private void playAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAIActionPerformed
