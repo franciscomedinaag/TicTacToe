@@ -46,7 +46,7 @@ public class Menu extends javax.swing.JFrame {
     
    
     public void getUsers(){
-        
+        System.out.println("getting users first time");
         connected=Inicio.con.connectedUsers();
         connected.remove(usuarioLabel.getText());
         connected.remove(" "+usuarioLabel.getText());
@@ -56,7 +56,7 @@ public class Menu extends javax.swing.JFrame {
             connectedModel.addElement(connected.get(i));
         }
         jList1.setModel(connectedModel);
-
+        System.out.println("Obtenida la lista incial");
      }
     
     public void listToModel(String stringConected){
@@ -226,13 +226,14 @@ public class Menu extends javax.swing.JFrame {
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         this.setVisible(false);
         Inicio.con.logout();
-        //new Inicio().setVisible(true);
+        new Inicio().setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
     private void playPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPlayerActionPerformed
         //Obtener el item seleccionado de la lista
         String selected = jList1.getSelectedValue();
+        System.out.println("selected: " + selected);
         if(selected != null)
         Inicio.con.sendGameInvitation(selected);
     }//GEN-LAST:event_playPlayerActionPerformed

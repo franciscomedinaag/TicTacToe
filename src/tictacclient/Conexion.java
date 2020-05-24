@@ -53,7 +53,7 @@ public class Conexion extends Thread {
     public void run() {  
         while(true)
         try {
-            System.out.println("Ready for action");
+            System.out.println("READY FOR COMMAND -------------------");
             String accion = entrada.readUTF();
             System.out.println("Recibiendo accion : " + accion);
             switch (accion) {
@@ -109,6 +109,7 @@ public class Conexion extends Thread {
     public void logout(){
         try {
             salida.writeUTF("logout");
+            this.interrupt();
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,6 +121,7 @@ public class Conexion extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("Fuera de función getUsrers");
     }
     
     public ArrayList<String> connectedUsers(){

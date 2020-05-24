@@ -5,14 +5,9 @@
  */
 package tictacclient;
 
-import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.net.*;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -20,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Inicio extends javax.swing.JFrame {
 
-    public static Conexion con = con = new Conexion();
+    public static Conexion con;
     public Socket socket;
     
     PreparedStatement ps;
@@ -32,6 +27,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         System.out.println("Iniciando el cliente...");
         initComponents();
+        con = new Conexion();
     }
 
     /**
